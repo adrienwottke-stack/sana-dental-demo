@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#075e54">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Terminbuchung im WhatsApp-Chat mit verbundenem Praxiskalender. Eine fiktive Praxis zum Ausprobieren.">
+  <title>Praxis am Park · WhatsApp</title>
+  <link rel="icon" href="/practice-avatar.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/whatsapp.css">
+  <link rel="stylesheet" href="/calendar.css">
+  <script src="/app.js" type="module"></script>
+</head>
+<body>
+  <main class="demo-app" aria-label="Terminbuchung">
+    <nav class="mobile-tabs demo-tabs" role="tablist" aria-label="Ansicht">
+      <button class="selected" id="chat-tab" role="tab" aria-selected="true" aria-controls="chat-panel" tabindex="0" data-tab="chat"><span data-icon="whatsapp"></span>WhatsApp</button>
+      <button id="calendar-tab" role="tab" aria-selected="false" aria-controls="calendar-panel" tabindex="-1" data-tab="calendar"><span data-icon="calendar"></span>Praxiskalender<span class="tab-count" id="tab-count" hidden>1</span></button>
+    </nav>
+    <section class="workspace" aria-label="Chat und Praxiskalender">
+      <div class="patient-demo">
+        <div class="chat-panel panel" id="chat-panel" role="tabpanel" aria-labelledby="chat-tab">
+            <div class="wa-chat-list" id="wa-chat-list" hidden><div class="wa-list-header"><strong>WhatsApp</strong><button class="icon-button" data-open-info aria-label="Informationen zur WhatsApp-Demo"><span data-icon="more"></span></button></div><div class="wa-list-title">Chats</div><button class="wa-contact" id="wa-open-chat"><img src="/practice-avatar.svg" width="52" height="52" alt=""><span><strong>Praxis am Park</strong><span id="wa-contact-preview">Wann möchten Sie vorbeikommen?</span></span><span class="wa-contact-time">heute</span></button><p class="wa-list-note">Tippen Sie auf die Praxis, um Ihren Termin zu vereinbaren.</p></div>
+            <header class="chat-header"><button class="wa-back" id="wa-back" aria-label="Zurück zur Chatübersicht"><span data-icon="back"></span><img src="/practice-avatar.svg" width="40" height="40" alt="Profilbild der Praxis"></button><button class="chat-identity" data-open-info aria-label="Praxisinformationen anzeigen"><h2>Praxis am Park</h2><p id="wa-contact-status">Unternehmenskonto</p></button><div class="wa-header-actions"><button class="wa-header-button" data-wa-preview="Anrufe" aria-label="Videoanruf"><span data-icon="video"></span></button><button class="wa-header-button" data-wa-preview="Anrufe" aria-label="Sprachanruf"><span data-icon="phone"></span></button><button class="wa-header-button" data-open-info aria-label="Chat-Menü"><span data-icon="more"></span></button></div></header>
+            <div class="chat-scroll" id="chat-scroll" tabindex="0" aria-label="Chatverlauf"><div class="day-divider">HEUTE</div><div class="chat-intro-note"><span data-icon="business"></span>WhatsApp-Demo · bitte nur erfundene Angaben.</div><div id="messages" role="log" aria-live="polite" aria-relevant="additions"><div class="loading-state"><div class="spinner"></div><p>Die Praxis ist gleich für Sie da …</p></div></div><div class="typing-bubble" id="typing" hidden><span></span><span></span><span></span><p>schreibt …</p></div></div>
+            <div class="error-banner" id="error" role="alert" hidden></div>
+            <div class="wa-emoji-picker" id="wa-emoji-picker" aria-label="Emoji auswählen" hidden><button type="button" data-emoji="👋" aria-label="Winken">👋</button><button type="button" data-emoji="🙂" aria-label="Lächeln">🙂</button><button type="button" data-emoji="🦷" aria-label="Zahn">🦷</button><button type="button" data-emoji="📅" aria-label="Kalender">📅</button><button type="button" data-emoji="👍" aria-label="Daumen hoch">👍</button><button type="button" data-emoji="🙏" aria-label="Danke">🙏</button></div>
+            <form class="composer" id="chat-form"><div class="wa-input-field"><button type="button" class="wa-input-button" id="wa-emoji-toggle" aria-label="Emojis öffnen" aria-expanded="false" aria-controls="wa-emoji-picker"><span data-icon="smile"></span></button><label for="message-input" class="sr-only">Nachricht an die digitale Rezeption</label><textarea id="message-input" name="message" rows="1" maxlength="1200" placeholder="Nachricht" autocomplete="off" enterkeyhint="send"></textarea><button type="button" class="wa-input-button wa-attach" data-wa-preview="Anhänge" aria-label="Anhang hinzufügen"><span data-icon="attach"></span></button><button type="button" class="wa-input-button wa-camera" data-wa-preview="Fotos" aria-label="Foto aufnehmen"><span data-icon="camera"></span></button></div><button class="send-button" id="send" type="submit" aria-label="Nachricht senden" disabled hidden><span data-icon="send"></span></button><button type="button" class="wa-mic-button" id="wa-mic" data-wa-preview="Sprachnachrichten" aria-label="Sprachnachricht"><span data-icon="mic"></span></button></form>
+
+        </div>
+      </div>
+      <div class="calendar-panel panel" id="calendar-panel" role="tabpanel" aria-labelledby="calendar-tab" hidden>
+            <header class="calendar-header"><div><h2>Praxiskalender</h2><p id="calendar-subtitle">So kommt der Termin in Ihrer Praxis an.</p></div><div class="calendar-symbol" data-icon="calendar"></div></header>
+            <div class="calendar-toolbar"><div><h3 id="month-label">Kalender wird geladen</h3><p id="week-label"></p></div><div class="week-actions"><button class="today-button" id="calendar-today">Heute</button><button class="icon-button" id="prev-week" aria-label="Vorherige Woche"><span data-icon="left"></span></button><button class="icon-button" id="next-week" aria-label="Nächste Woche"><span data-icon="right"></span></button></div></div>
+            <div class="calendar-scroll" id="calendar-scroll"><div class="calendar-grid" id="calendar-grid"></div><div class="calendar-agenda" id="calendar-agenda"></div></div>
+            <div class="calendar-legend"><span><i class="legend-seed"></i>Beispieltermine</span><span><i class="legend-own"></i>Ihre Buchung</span><span class="timezone">Berliner Zeit</span></div>
+            <div id="booking-summary" class="booking-summary empty"><div class="empty-calendar-icon" data-icon="appointment"></div><div><h3>Noch kein Termin gebucht.</h3><p>Bestätigte Termine aus dem Chat erscheinen hier.</p></div><span class="empty-arrow" data-icon="arrowcurve"></span></div>
+          </div>
+
+    </section>
+  </main>
+  <dialog id="info-dialog" class="info-dialog" aria-label="Chat-Menü">
+    <button class="dialog-close icon-button" aria-label="Schließen"><span data-icon="close"></span></button>
+    <div id="dialog-content"></div>
+    <div class="dialog-tools" id="dialog-tools">
+      <button id="open-contact" class="menu-action"><span data-icon="phone"></span>Adrien kontaktieren</button>
+      <button id="share-link" class="menu-action"><span data-icon="external"></span>Link zum Weitergeben</button>
+      <button id="reset" class="menu-action"><span data-icon="restart"></span>Chat neu starten</button>
+      <button class="menu-action" data-open-privacy><span data-icon="business"></span>Hinweise & Datenschutz</button>
+    </div>
+  </dialog>
+  <dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title" aria-describedby="contact-copy">
+    <button type="button" class="contact-close icon-button" id="contact-close" aria-label="Kontaktfenster schließen"><span data-icon="close"></span></button>
+    <div class="contact-symbol" aria-hidden="true"><span data-icon="phone"></span></div>
+    <p class="contact-eyebrow">Für Ihre Praxis</p>
+    <h2 id="contact-title">Möchten Sie das auch für Ihre Praxis?</h2>
+    <p class="contact-copy" id="contact-copy">Lassen Sie uns besprechen, wie die Terminbuchung per Chat bei Ihnen aussehen kann.</p>
+    <div class="contact-person"><strong>Adrien Wottke</strong><span>Ihr direkter Ansprechpartner</span></div>
+    <a class="contact-call" id="contact-call" href="#portfolio-contact"><span data-icon="phone"></span>Adrien jetzt anrufen</a>
+    <p class="contact-number">Kontakt in der Portfoliofassung deaktiviert</p>
+    <button type="button" class="contact-calendar" id="contact-calendar">Erst den Kalender ansehen<span data-icon="right"></span></button>
+    <button type="button" class="contact-continue" id="contact-continue">Weiter ausprobieren</button>
+  </dialog>
+  <div class="toast" id="toast" role="status" hidden><span data-icon="check"></span><span id="toast-text"></span><button id="toast-calendar">Ansehen<span data-icon="right"></span></button></div>
+</body>
+</html>

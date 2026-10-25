@@ -1,0 +1,56 @@
+/* Readable week view on desktop; a full-width day agenda on small screens. */
+.calendar-agenda{display:none}
+#calendar-grid{grid-template-columns:46px repeat(5,minmax(0,1fr));min-height:774px}
+#calendar-grid .day-head{height:54px;padding-top:4px;gap:5px;border-color:#dce3df;z-index:3}
+#calendar-grid .day-head span{font-size:11px;letter-spacing:.3px;color:#54656f}
+#calendar-grid .day-head strong{font-size:14px;font-weight:600;width:29px;height:29px}
+#calendar-grid .time-column,#calendar-grid .day-column{height:720px}
+#calendar-grid .hour-label{top:calc(var(--hour)*72px - 6px);font-size:11px;line-height:14px;color:#54656f;font-variant-numeric:tabular-nums}
+#calendar-grid .day-column{border-left:1px solid #e0e6e2;background:repeating-linear-gradient(to bottom,#fff 0,#fff 71px,#e4eae6 71px,#e4eae6 72px)}
+#calendar-grid .calendar-event{top:calc(var(--start)*1.2px);height:calc(var(--duration)*1.2px - 3px);min-height:31px;left:4px;right:4px;padding:3px 5px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:1px;border:1px solid #c6dce9;border-left:3px solid #3880a5;border-radius:5px;background:#edf5fb;color:#234d65;opacity:1;overflow:hidden}
+#calendar-grid .calendar-event .event-time{font-size:11px;line-height:12px;font-weight:600;opacity:1;color:inherit;flex-shrink:0;white-space:nowrap}
+#calendar-grid .calendar-event .event-name{font-size:12px;line-height:14px;font-weight:500;color:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#calendar-grid .calendar-event.cleaning{background:#e9f5ed;border-color:#bddbc8;border-left-color:#43855b;color:#285c3d}
+#calendar-grid .calendar-event.consultation{background:#f0edfa;border-color:#d3c8eb;border-left-color:#8d70ba;color:#5b3f83}
+#calendar-grid .calendar-event.pain{background:#fff3e8;border-color:#ebd4b9;border-left-color:#bc854a;color:#76502b}
+#calendar-grid .calendar-event.own{background:#075e54;border-color:#075e54;border-left-color:#03b894;color:#fff;z-index:2;box-shadow:0 2px 5px #075e5426}
+#calendar-grid .calendar-event.selected-slot{background:#e6f5f0;border:1px dashed #008069;border-left:3px solid #008069;color:#075e54;opacity:1;z-index:2}
+#calendar-grid .calendar-event.pause{border:0;border-radius:0;background:repeating-linear-gradient(-45deg,#f4f6f3 0,#f4f6f3 5px,#eef2ee 5px,#eef2ee 6px);color:#6b796d;align-items:center;justify-content:center;font-size:10px;line-height:15px;letter-spacing:.2px;padding:4px}
+.share-url{display:block;width:100%;min-height:46px;border:1px solid #b8cac2;border-radius:6px;background:#f7faf8;padding:9px;color:#075e54;font:13px/1.5 "Segoe UI",sans-serif}
+@media(max-width:600px){
+  #calendar-grid{display:none}
+  #calendar-agenda{display:block}
+  .demo-app #calendar-scroll{padding:0 16px 12px;scroll-padding-top:86px}
+  .agenda-days{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:5px 0 10px;background:#fff;border-bottom:1px solid #e3e9e5}
+  .agenda-days button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:59px;border:1px solid transparent;border-radius:8px;color:#667781}
+  .agenda-days button span{font-size:10px;line-height:14px;letter-spacing:.4px}
+  .agenda-days button strong{font-size:17px;line-height:22px;font-weight:600;color:#263b35}
+  .agenda-days button[aria-pressed=true]{background:#e8f4ee;border-color:#bad9ca;color:#075e54}
+  .agenda-days button[aria-pressed=true] strong{color:#075e54}
+  .agenda-days button i{position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%;background:#008069}
+  .agenda-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:15px 0 12px}
+  .agenda-heading h3{font-size:13px;line-height:20px;margin:0;font-weight:600;color:#263b35}
+  .agenda-heading>span{font-size:10px;color:#667781;white-space:nowrap}
+  .agenda-list{display:flex;flex-direction:column;gap:10px}
+  .agenda-event{display:grid;grid-template-columns:66px minmax(0,1fr);gap:10px;align-items:start;min-height:76px;padding:12px;border:1px solid #c9dde9;border-left:4px solid #3880a5;border-radius:8px;background:#f1f7fc;color:#234d65}
+  .agenda-event.cleaning{background:#edf7f0;border-color:#c4dfce;border-left-color:#43855b;color:#285c3d}
+  .agenda-event.consultation{background:#f3f0fc;border-color:#d7cdee;border-left-color:#8d70ba;color:#5b3f83}
+  .agenda-event.pain{background:#fff5eb;border-color:#ebd4b9;border-left-color:#bc854a;color:#76502b}
+  .agenda-event.own{background:#075e54;border-color:#075e54;border-left-color:#03b894;color:#fff}
+  .agenda-event.selected-slot{background:#eaf7f1;border:1px dashed #008069;border-left:4px solid #008069;color:#075e54}
+  .agenda-time{display:flex;flex-direction:column;gap:3px;font-variant-numeric:tabular-nums}
+  .agenda-time strong{font-size:16px;line-height:21px;font-weight:600}
+  .agenda-time>span{font-size:10px;line-height:15px;opacity:.9}
+  .agenda-details{min-width:0}
+  .agenda-details h4{margin:0;font-size:14px;line-height:20px;font-weight:600;overflow-wrap:anywhere}
+  .agenda-details p{margin:4px 0 0;font-size:12px;line-height:18px;opacity:.94;overflow-wrap:anywhere}
+  .agenda-badge{display:inline-block;margin-top:9px;padding:3px 6px;border-radius:4px;background:#ffffff20;font-size:10px;line-height:15px;font-weight:500}
+  .selected-slot .agenda-badge{background:#d5ede2}
+  .agenda-pause{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:42px;padding:10px 12px;border:1px solid #e2e7e2;border-radius:6px;background:#f5f7f4;color:#667168;font-size:11px;line-height:17px}
+  .agenda-pause span{font-variant-numeric:tabular-nums}
+  .agenda-closed{padding:10px;text-align:center;font-size:11px;line-height:18px;color:#667168}
+  .agenda-empty{padding:18px 12px;border:1px dashed #cedbd3;border-radius:7px;color:#667781;font-size:13px;line-height:21px;text-align:center}
+  .demo-app .calendar-legend{padding-top:8px;padding-bottom:8px}
+  .demo-app .summary-meta{flex-wrap:wrap;gap:4px 12px;line-height:17px}
+}
+@media(max-width:360px){.demo-app #calendar-scroll{padding-left:12px;padding-right:12px}.agenda-event{grid-template-columns:58px minmax(0,1fr);gap:8px;padding:10px}.agenda-heading{gap:6px}.agenda-heading h3{font-size:12px}.agenda-heading>span{font-size:9px}}

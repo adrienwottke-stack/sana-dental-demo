@@ -1,0 +1,54 @@
+name: sana-demo
+services:
+  app:
+    image: sana-demo:${RELEASE:-1.5.0}
+    build: .
+    container_name: sana-demo
+    restart: unless-stopped
+    mem_limit: 160m
+    cpus: 0.35
+    pids_limit: 60
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=8m,noexec,nosuid
+    env_file:
+      - runtime.env
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4187
+      DATA_DIR: /app/data
+      RELEASE: ${RELEASE:-1.5.0}
+    volumes:
+      - sana-data:/app/data
+    networks:
+      - coolify
+    logging:
+      driver: json-file
+      options:
+        max-size: 2m
+        max-file: '2'
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: coolify
+      traefik.http.services.sana-demo.loadbalancer.server.port: '4187'
+      traefik.http.middlewares.sana-demo-https.redirectscheme.scheme: https
+      traefik.http.middlewares.sana-demo-https.redirectscheme.permanent: 'true'
+      traefik.http.routers.sana-demo-http.entrypoints: http
+      traefik.http.routers.sana-demo-http.rule: Host(`sana.127.0.0.1.sslip.io`)
+      traefik.http.routers.sana-demo-http.middlewares: sana-demo-https
+      traefik.http.routers.sana-demo-http.service: sana-demo
+      traefik.http.routers.sana-demo.entrypoints: https
+      traefik.http.routers.sana-demo.rule: Host(`sana.127.0.0.1.sslip.io`)
+      traefik.http.routers.sana-demo.service: sana-demo
+      traefik.http.routers.sana-demo.tls: 'true'
+      traefik.http.routers.sana-demo.tls.certresolver: letsencrypt
+networks:
+  coolify:
+    external: true
+volumes:
+  sana-data:
