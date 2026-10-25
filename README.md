@@ -1,5 +1,6 @@
 # Sana Dental Demo
 
+[Alle öffentlichen Arbeitsproben im Überblick](https://github.com/adrienwottke-stack/engine-playground/blob/main/PORTFOLIO.md)
 Interaktive Buchungsdemo mit natürlichem Chat und abgestimmter Kalenderansicht.
 
 ## Projekt und Beitrag
